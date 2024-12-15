@@ -17,20 +17,16 @@
         }
 
         async function loadHTMLFile(fileUrl) {
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
             try {
-                const response = await fetch(fileUrl, { mode: 'no-cors' });
+                const response = await fetch(proxyUrl + fileUrl);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const htmlContent = await response.text();
                 document.getElementById('content').innerHTML = htmlContent;
             } catch (error) {
-                console.error(error);
-                document.getElementById('content').innerHTML = `
-                    <h1>Error loading file</h1>
-                    <p>${error.message}</p>
-                    <p>The requested resource may be blocked by CORS policy. Try hosting the file on a server with CORS enabled.</p>
-                `;
+                document.getElementById('content').innerHTML = `<h1>Error loading file</h1><p>${error.message}</p>`;
             }
         }
 
@@ -38,10 +34,7 @@
         if (fileUrl) {
             loadHTMLFile(fileUrl);
         } else {
-            document.getElementById('content').innerHTML = `
-                <h1>No file specified</h1>
-                <p>Please provide a file URL using the "file" query parameter.</p>
-            `;
+            document.getElementById('content').innerHTML = '<h1>No file specified</h1><p>Please provide a file URL using the "file" query parameter.</p>';
         }
     </script>
 </body>

@@ -17,9 +17,8 @@
         }
 
         async function loadHTMLFile(fileUrl) {
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
             try {
-                const response = await fetch(proxyUrl + fileUrl);
+                const response = await fetch(fileUrl);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
